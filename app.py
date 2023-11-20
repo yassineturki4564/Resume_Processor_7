@@ -532,7 +532,7 @@ def main():
             # Create a temporary directory to save the Excel file
             excel_temp_dir = tempfile.mkdtemp()
             output_file_path = os.path.join(excel_temp_dir, output_file_name)
-            df_simple.drop(columns=['PDF File']).to_excel(output_file_path, index=False, engine="openpyxl")            
+            df_simple.to_excel(output_file_path, index=False, engine="openpyxl")            
             # Provide a link for downloading the file
             st.markdown(get_download_link(output_file_path, "Click here to download the processed file"), unsafe_allow_html=True)
             st.write("Data extraction and processing completed.")
