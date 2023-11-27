@@ -487,7 +487,7 @@ def all_the_process(directory, max_attempts, education_keywords, keywords, chunk
     df["Match Count"] = df.apply(lambda row: sum(1 for word in Dict.values() if word.lower() in row["Raw_Text"].lower()), axis=1)
     df["Keywords"] = df.apply(lambda row: [word for word in Dict_lower.values() if word in row["Raw_Text"].lower() and word not in education_keywords_lower], axis=1)
     df.sort_values(by=["Match Count", "Experience Sum"], ascending=False, inplace=True)
-    display_df = df.drop(columns=['Raw_Text', 'Cleaned_Text','Experience_Levels','Years of Experience'])
+    display_df = df
     return display_df
 def get_download_link(filename, text):
     with open(filename, 'rb') as f:
