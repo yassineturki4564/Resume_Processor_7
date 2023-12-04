@@ -487,7 +487,7 @@ def all_the_process(directory, max_attempts, education_keywords, keywords, chunk
     df["Match Count"] = df.apply(lambda row: sum(1 for word in Dict.values() if word.lower() in row["Raw_Text"].lower()), axis=1)
     df["Keywords"] = df.apply(lambda row: [word for word in Dict_lower.values() if word in row["Raw_Text"].lower() and word not in education_keywords_lower], axis=1)
     df.sort_values(by=["Match Count", "Experience Sum"], ascending=False, inplace=True)
-    display_df = df.drop(columns=['Years of Experience'])
+    display_df = df.drop(columns=['Raw_Text', 'Cleaned_Text','Experience_Levels','Years of Experience'])
     return display_df
 def get_download_link(filename, text):
     with open(filename, 'rb') as f:
@@ -532,7 +532,7 @@ def main():
             # Create a temporary directory to save the Excel file
             excel_temp_dir = tempfile.mkdtemp()
             output_file_path = os.path.join(excel_temp_dir, output_file_name)
-            df_simple.to_excel(output_file_path, index=False, engine="openpyxl")            
+            df_simple.drop(columns=['PDF File']).to_excel(output_file_path, index=False, engine="openpyxl")            
             # Provide a link for downloading the file
             st.markdown(get_download_link(output_file_path, "Click here to download the processed file"), unsafe_allow_html=True)
             st.write("Data extraction and processing completed.")
